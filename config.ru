@@ -9,12 +9,4 @@ require 'erb'
 # load controllers
 Dir[File.dirname(__FILE__) + '/controllers/*.rb'].each {|file| require file}
 
-# map('/') {run WebController}
-
-
-
-
-
-
-
-
+map('/') {run WebController}

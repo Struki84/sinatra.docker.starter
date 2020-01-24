@@ -18,29 +18,6 @@ services:
       - "8000:8000"
     networks:
       - backend
-    depends_on:
-      - my_app_db
-    restart: on-failure
-	
-	# Uncomment to add database service. Note: You need to add additional gems to Gemfile, 
-	# based on what db adapter you are using [eg. Active Record, DataMapper], and make necesarry 
-	# configurations in your sinatra config file.
-  # db: 
-  #   container_name: my_app_db
-  #   image: postgres:9-alpine
-  #   environment:
-  #     POSTGRES_DB: my_app
-  #     POSTGRES_HOST: my_app_db
-  #     POSTGRES_PASSWORD: admin
-  #     POSTGRES_USER: admin
-  #     POSTGRES_PORT: 5432
-  #     PGDATA: /var/lib/postgresql/data/pg_data
-  #   volumes:
-  #   - pg-data:/var/lib/postgresql/data/pg_data
-  #   ports: 
-  #     - "5432:5432"
-  #   networks:
-  #     - backend
 
 networks: 
   backend:
