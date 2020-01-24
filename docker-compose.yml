@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  my_app:
+    container_name: my_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rackup config.ru -E development --host 0.0.0.0 -p 8000 
+    environment:
+      POSTGRES_DB: blog
+      POSTGRES_HOST: my_app_db
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    depends_on:
+      - my_app_db
+    restart: on-failure
+	
+	# Uncomment to add database service. Note: You need to add additional gems to Gemfile, 
+	# based on what db adapter you are using [eg. Active Record, DataMapper], and make necesarry 
+	# configurations in your sinatra config file.
+  # db: 
+  #   container_name: my_app_db
+  #   image: postgres:9-alpine
+  #   environment:
+  #     POSTGRES_DB: my_app
+  #     POSTGRES_HOST: my_app_db
+  #     POSTGRES_PASSWORD: admin
+  #     POSTGRES_USER: admin
+  #     POSTGRES_PORT: 5432
+  #     PGDATA: /var/lib/postgresql/data/pg_data
+  #   volumes:
+  #   - pg-data:/var/lib/postgresql/data/pg_data
+  #   ports: 
+  #     - "5432:5432"
+  #   networks:
+  #     - backend
+
+networks: 
+  backend:
+    driver: bridge
+    
+volumes:
+  pg-data:
